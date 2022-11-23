@@ -1,0 +1,17 @@
+{
+  "resourceName": "nextimageresource",
+  "policyUUID": "095f559b",
+  "bucketName": "nextimageproject365",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": {}
+}
