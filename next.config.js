@@ -6,11 +6,10 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'nextimageproject365120311-dev.s3.amazonaws.com',
+        hostname: 'nextimageproject365120311-dev.s3.us-east-1.amazonaws.com',
+        pathname: '/public/**',
       },
     ],
-
-    domains: ['https://nextimageproject365120311-dev.s3.amazonaws.com']
 
   },
 }

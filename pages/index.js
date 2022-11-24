@@ -3,19 +3,16 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 
-
-
 export default function Home() {
   const [images, getImages] = useState([])
 
   const getUploadedImage = async () => {
-    await Storage.list('') // for listing ALL files without prefix, pass '' instead
-      .then((response) => {
-        getImages(response.results[0].key)
-      })
-      .catch((err) => console.log(err));
+    const file = await Storage.get("pexels-marina-leonova-9465701.png", {
+      level: "public"
+    });
+    console.log(file)
+    getImages(file)
   }
-
   const pageLinks = [
     {
       href: "/placeholder",
@@ -51,7 +48,7 @@ export default function Home() {
         <p className='my-4 text-lg text-gray-500'> For the purpose of this demo, we will display just the first image in the s3 bucket</p>
         <div>
           <Image
-            src={`https://nextimageproject365120311-dev.s3.amazonaws.com/public/${images}`}
+            src={images}
             alt="Picture of the author"
             width={300}
             height={300}
@@ -69,7 +66,6 @@ export default function Home() {
               <Link
                 href={{
                   pathname: page.href,
-                  query: images
                 }}
                 className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
               >

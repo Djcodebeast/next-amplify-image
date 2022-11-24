@@ -1,10 +1,21 @@
-import { useRouter } from "next/router"
-import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from 'react'
+import { Storage } from "aws-amplify"
 
 const Fill = () => {
-    const router = useRouter();
-    const image = Object.keys(router.query);
+    const [imageUrl, getImageUrl] = useState([])
+
+    const getUploadedImage = async () => {
+        const file = await Storage.get("pexels-marina-leonova-9465701.png", {
+            level: "public"
+        });
+        console.log(file)
+        getImageUrl(file)
+    }
+
+    useEffect(() => {
+        getUploadedImage()
+    }, [])
     return (
         <div className="p-2">
 
@@ -16,8 +27,8 @@ const Fill = () => {
                 <div className="relative w-[300px] h-[500px] border-2 border-red-400 my-8 overflow-hidden">
 
                     <Image
-                        alt={image}
-                        src={`https://nextimageproject365120311-dev.s3.amazonaws.com/public/${image}`}
+                        alt="Layout Fill"
+                        src={imageUrl}
                         fill
                         // sizes="100vw"
                         style={{
@@ -30,8 +41,8 @@ const Fill = () => {
                 <div className="relative w-[300px] h-[500px] border-2 border-red-400 my-8">
 
                     <Image
-                        alt={image}
-                        src={`https://nextimageproject365120311-dev.s3.amazonaws.com/public/${image}`}
+                        alt="Layout Fill"
+                        src={imageUrl}
                         fill
                         // sizes="100vw"
                         style={{
@@ -43,11 +54,10 @@ const Fill = () => {
                 <div className="relative w-[300px] h-[500px] border-2 border-red-400 my-8">
 
                     <Image
-                        alt={image}
-                        src={`https://nextimageproject365120311-dev.s3.amazonaws.com/public/${image}`}
+                        alt="Layout Fill"
+                        src={imageUrl}
                         quality={100}
                         fill
-                        // sizes="100vw"
                         style={{
                             objectFit: 'none',
                         }}

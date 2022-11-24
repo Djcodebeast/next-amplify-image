@@ -1,10 +1,21 @@
-import { useRouter } from "next/router"
-import Link from "next/link";
+import { useState, useEffect } from 'react'
+import { Storage } from "aws-amplify"
 import Image from "next/image";
 
 const Responsive = () => {
-    const router = useRouter();
-    const image = Object.keys(router.query);
+    const [imageUrl, getImageUrl] = useState([])
+
+    const getUploadedImage = async () => {
+        const file = await Storage.get("pexels-marina-leonova-9465701.png", {
+            level: "public"
+        });
+        console.log(file)
+        getImageUrl(file)
+    }
+
+    useEffect(() => {
+        getUploadedImage()
+    }, [])
     return (
         <div className="p-2">
 
@@ -14,8 +25,8 @@ const Responsive = () => {
                     This uses the sizes property to configure how next/image automatically generates an image source set.
                 </p>
                 <Image
-                    alt={image}
-                    src={`https://nextimageproject365120311-dev.s3.amazonaws.com/public/${image}`}
+                    alt="layout Responsive"
+                    src={imageUrl}
                     width={700}
                     height={475}
                     sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw, 33vw"
